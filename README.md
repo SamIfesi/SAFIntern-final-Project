@@ -78,7 +78,8 @@ A modern, responsive web application for calculating Grade Point Average (GPA) w
 
 ## 🎨 Color Palette
 
-View the complete color palette: **[COLOR_PALETTE.md](COLOR_PALETTE.md)**
+View the complete color palette: **[COLOR_PALETTE.md](COLOR_P
+ALETTE.md)**
 
 **Primary Colors:**
 
@@ -163,7 +164,7 @@ SAFIntern-final-Project/
 ## 📖 Documentation
 
 - **[Full Documentation](DOCUMENTATION.md)** - Complete technical guide with detailed features
-- **[Presentation Slides](#)** - Project overview, features, and technologies (PDF)
+- **[Presentation Slides](GPA-Calculator-Presentation.pdf)** - Project overview, features, and technologies (PDF)
 
 ---
 
@@ -190,6 +191,7 @@ Works on all modern browsers:
 
 - GitHub: [@SamIfesi](https://github.com/SamIfesi)
 - LinkedIn: [Sam Ifesi](https://www.linkedin.com/in/sam-ifesi)
+- 🏆 **Certificates**: [View All Certificates](CERTIFICATES.md)
 
 ---
 
