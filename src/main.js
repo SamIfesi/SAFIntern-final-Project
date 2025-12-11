@@ -89,6 +89,16 @@ const CourseManager = {
     }
     return true;
   },
+  loadCoursesIntoForm(courses) {
+    elements.courseTableBody.innerHTML = "";
+    courses.forEach((course) => {
+      const row = this.createCourseRow();
+      row.querySelector(".course-name").value = course.courseName;
+      row.querySelector(".grade").value = course.grade;
+      row.querySelector(".credit").value = course.credit;
+      elements.courseTableBody.appendChild(row);
+    });
+  },
 };
 
 const DataManager = {
@@ -303,6 +313,24 @@ const FormHandlers = {
       );
     else alert("Failed to save courses. Please try again.");
   },
+  handleLoadCourses() {
+    const savedCourses = DataManager.loadCourses();
+    if (!savedCourses || savedCourses.length === 0) {
+      alert("No saved courses found!");
+      return;
+    }
+    const lastSaved = DataManager.getLastSavedDate();
+    const date = lastSaved ? new Date(lastSaved).toLocaleString() : "Unknown";
+    if (
+      confirm(
+        `Load ${savedCourses.length} saved course(s)?\nLast saved: ${date}\n\nThis will replace your current data.`
+      )
+    ) {
+      CourseManager.loadCoursesIntoForm(savedCourses);
+      ResultsManager.hideResults();
+      alert(`✓ Successfully loaded ${savedCourses.length} course(s)!`);
+    }
+  },
 };
 
 function initElements() {
@@ -317,6 +345,7 @@ function initElements() {
     totalCredits: id("totalCredits"),
     resultsTableBody: id("resultsTableBody"),
     addCourseBtn: id("addCourse"),
+    loadCourseBtn: id("loadCourses"),
     resetFormBtn: id("resetForm"),
     printResultsBtn: id("printResults"),
     newCalculationBtn: id("newCalculation"),
@@ -332,6 +361,9 @@ function init() {
   );
   elements.addCourseBtn.addEventListener("click", () =>
     CourseManager.addCourse()
+  );
+  elements.loadCourseBtn.addEventListener("click", () =>
+    FormHandlers.handleLoadCourses()
   );
   elements.resetFormBtn.addEventListener("click", () =>
     FormHandlers.handleReset()
