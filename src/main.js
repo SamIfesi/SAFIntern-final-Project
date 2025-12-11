@@ -39,7 +39,7 @@ const CourseManager = {
     const row = document.createElement("tr");
     row.className = "course-row";
     row.innerHTML = `
-      <td><input type="text" class="course-name" placeholder="e.g., Mathematics" required></td>
+      <td><input type="text" class="course-name" placeholder="e.g., GSP 101" required></td>
       <td><select class="grade" required>
         <option value="">Select Grade</option>
         <option value="5">A (Excellent)</option>
