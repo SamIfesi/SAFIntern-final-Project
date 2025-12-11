@@ -68,7 +68,9 @@
                       />
                     </td>
                     <td>
-                      <button type="button" class="btn-remove" id="remove">Remove</button>
+                      <button type="button" class="btn-remove" id="remove">
+                        Remove
+                      </button>
                     </td>
                   </tr>
                 </tbody>
@@ -76,9 +78,15 @@
             </div>
 
             <div class="form-actions">
-              <button type="button" class="btn-add" id="addCourse">Add Course</button>
-              <button type="submit" class="btn-calculate" id="calculateGPA">Calculate GPA</button>
-              <button type="button" class="btn-reset" id="resetForm">Reset</button>
+              <button type="button" class="btn-add" id="addCourse">
+                Add Course
+              </button>
+              <button type="submit" class="btn-calculate" id="calculateGPA">
+                Calculate GPA
+              </button>
+              <button type="button" class="btn-reset" id="resetForm">
+                Reset
+              </button>
             </div>
           </form>
         </section>
@@ -109,6 +117,19 @@
             </div>
           </div>
 
+          <div
+            class="performance-advisor"
+            id="performanceAdvisor"
+            style="display: none"
+          >
+            <h3>Performance Advisor</h3>
+            <p class="advisor-text" id="advisorText"></p>
+            <div
+              class="advisor-recommendations"
+              id="advisorRecommendations"
+            ></div>
+          </div>
+
           <div class="results-table-wrapper">
             <h3>Course Breakdown</h3>
             <table class="results-table">
@@ -127,8 +148,15 @@
           </div>
 
           <div class="result-actions">
-            <button type="button" class="btn-print" id="printResults">Print Results</button>
-            <button type="button" class="btn-new" id="newCalculation">New Calculation</button>
+            <button type="button" class="btn-print" id="printResults">
+              Print Results
+            </button>
+            <button type="button" class="btn-new" id="newCalculation">
+              New Calculation
+            </button>
+            <button type="button" class="btn-save" id="saveCourses">
+              Save Data
+            </button>
           </div>
         </section>
       </main>
@@ -136,11 +164,24 @@
       <footer>
         <p>&copy; 2025 SAFRecords GPA Calculator</p>
         <p>Designed By Eke, Ifesinachi Samrose</p>
-        <p><a href="https://github.com/SamIfesi" target="_blank" rel="noopener noreferrer">GitHub</a> | <a href="https://www.linkedin.com/in/sam-ifesi" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+        <p>
+          <a
+            href="https://github.com/SamIfesi"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          >
+          |
+          <a
+            href="https://www.linkedin.com/in/sam-ifesi"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+        </p>
       </footer>
     </div>
 
     <script src="src/main.js"></script>
   </body>
 </html>
-

@@ -4,6 +4,12 @@ const qa = (s) => document.querySelectorAll(s);
 // Elements will be initialized after DOM is ready
 let elements = {};
 
+// LocalStorage keys
+const STORAGE_KEYS = {
+  COURSES: "gpa_calculator_courses",
+  LAST_SAVED: "gpa_calculator_last_saved",
+};
+
 // ==================== THEME MANAGEMENT ====================
 
 const ThemeManager = {
@@ -85,13 +91,13 @@ const CourseManager = {
         <button type="button" class="btn-remove">Remove</button>
       </td>
     `;
-    
+
     // Attach remove event listener
-    const removeBtn = row.querySelector('.btn-remove');
-    removeBtn.addEventListener('click', function() {
+    const removeBtn = row.querySelector(".btn-remove");
+    removeBtn.addEventListener("click", function () {
       CourseManager.removeCourse(this);
     });
-    
+
     return row;
   },
 
@@ -146,6 +152,40 @@ const CourseManager = {
   },
 };
 
+// ==================== DATA HANDLING (LocalStorage) ====================
+
+const DataManager = {
+  saveCourses(courses) {
+    try {
+      localStorage.setItem(STORAGE_KEYS.COURSES, JSON.stringify(courses));
+      localStorage.setItem(STORAGE_KEYS.LAST_SAVED, new Date().toISOString());
+      return true;
+    } catch (error) {
+      console.error("Error saving courses:", error);
+      return false;
+    }
+  },
+
+  loadCourses() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.COURSES);
+      return saved ? JSON.parse(saved) : null;
+    } catch (error) {
+      console.error("Error loading courses:", error);
+      return null;
+    }
+  },
+
+  clearSavedData() {
+    localStorage.removeItem(STORAGE_KEYS.COURSES);
+    localStorage.removeItem(STORAGE_KEYS.LAST_SAVED);
+  },
+
+  getLastSavedDate() {
+    return localStorage.getItem(STORAGE_KEYS.LAST_SAVED);
+  },
+};
+
 // ==================== GPA CALCULATION ====================
 
 const GPACalculator = {
@@ -166,6 +206,7 @@ const GPACalculator = {
       gpa,
       totalCourses: courses.length,
       totalCredits,
+      totalGradePoints,
       courses: courses.map((course) => ({
         ...course,
         gradePoints: (course.grade * course.credit).toFixed(2),
@@ -183,6 +224,119 @@ const GPACalculator = {
       0: "F",
     };
     return gradeMap[gradeValue] || "N/A";
+  },
+};
+
+// ==================== PERFORMANCE ADVISOR ====================
+
+const PerformanceAdvisor = {
+  analyzePerformance(currentGPA, totalCredits, totalGradePoints) {
+    const gpa = parseFloat(currentGPA);
+    const targets = [
+      { gpa: 4.5, label: "First Class" },
+      { gpa: 3.5, label: "Second Class Upper" },
+      { gpa: 2.5, label: "Second Class Lower" },
+    ];
+
+    const recommendations = [];
+
+    targets.forEach((target) => {
+      if (gpa < target.gpa) {
+        const advice = this.calculateTargetGrades(
+          gpa,
+          totalCredits,
+          totalGradePoints,
+          target.gpa
+        );
+        recommendations.push({
+          target: target.label,
+          targetGPA: target.gpa,
+          advice: advice,
+        });
+      }
+    });
+
+    return recommendations;
+  },
+
+  calculateTargetGrades(
+    currentGPA,
+    currentCredits,
+    currentGradePoints,
+    targetGPA
+  ) {
+    // Assuming student wants to take 3 more courses with 3 credits each
+    const futureCredits = 9; // 3 courses × 3 credits
+    const totalFutureCredits = currentCredits + futureCredits;
+
+    // Calculate required total grade points
+    const requiredTotalGradePoints = targetGPA * totalFutureCredits;
+    const neededGradePoints = requiredTotalGradePoints - currentGradePoints;
+    const neededAverageGrade = neededGradePoints / futureCredits;
+
+    if (neededAverageGrade > 5) {
+      return `Target GPA of ${targetGPA.toFixed(
+        2
+      )} is not achievable with standard grading scale (max 5.0).`;
+    } else if (neededAverageGrade < 0) {
+      return `You've already exceeded this target! Keep up the great work! 🎉`;
+    }
+
+    const gradeLabel = this.getClosestGrade(neededAverageGrade);
+    return `To reach a ${targetGPA.toFixed(
+      2
+    )} GPA, aim for an average grade of ${gradeLabel} (${neededAverageGrade.toFixed(
+      2
+    )}) in your next 3 courses (9 credits).`;
+  },
+
+  getClosestGrade(gradeValue) {
+    if (gradeValue >= 4.5) return "A (5.0)";
+    if (gradeValue >= 3.5) return "B (4.0)";
+    if (gradeValue >= 2.5) return "C (3.0)";
+    if (gradeValue >= 1.5) return "D (2.0)";
+    if (gradeValue >= 0.5) return "E (1.0)";
+    return "F (0.0)";
+  },
+
+  displayAdvisor(results) {
+    const advisorSection = id("performanceAdvisor");
+    const advisorText = id("advisorText");
+    const advisorRecommendations = id("advisorRecommendations");
+
+    const currentGPA = parseFloat(results.gpa);
+
+    if (currentGPA >= 4.5) {
+      advisorText.textContent =
+        "🎓 Outstanding! You have a First Class GPA. Keep maintaining this excellent standard!";
+      advisorRecommendations.innerHTML = "";
+      advisorSection.style.display = "block";
+      return;
+    }
+
+    const recommendations = this.analyzePerformance(
+      results.gpa,
+      results.totalCredits,
+      results.totalGradePoints
+    );
+
+    if (recommendations.length > 0) {
+      advisorText.textContent = "📊 Performance Analysis & Recommendations:";
+
+      let html = '<ul class="advisor-list">';
+      recommendations.forEach((rec) => {
+        html += `
+          <li class="advisor-item">
+            <strong>${rec.target} (${rec.targetGPA.toFixed(2)} GPA):</strong>
+            <p>${rec.advice}</p>
+          </li>
+        `;
+      });
+      html += "</ul>";
+
+      advisorRecommendations.innerHTML = html;
+      advisorSection.style.display = "block";
+    }
   },
 };
 
@@ -206,6 +360,9 @@ const ResultsManager = {
       `;
       elements.resultsTableBody.appendChild(row);
     });
+
+    // Display Performance Advisor
+    PerformanceAdvisor.displayAdvisor(results);
 
     this.showResults();
   },
@@ -258,6 +415,22 @@ const FormHandlers = {
     ResultsManager.hideResults();
     window.scrollTo({ top: 0, behavior: "smooth" });
   },
+
+  handleSaveCourses() {
+    const courses = CourseManager.getCourses();
+    if (courses.length === 0) {
+      alert("No courses to save!");
+      return;
+    }
+
+    if (DataManager.saveCourses(courses)) {
+      alert(
+        `✓ Successfully saved ${courses.length} course(s) to your browser!`
+      );
+    } else {
+      alert("Failed to save courses. Please try again.");
+    }
+  },
 };
 
 // ==================== INITIALIZATION ====================
@@ -277,6 +450,7 @@ function initElements() {
     resetFormBtn: id("resetForm"),
     printResultsBtn: id("printResults"),
     newCalculationBtn: id("newCalculation"),
+    saveCourseBtn: id("saveCourses"),
   };
 }
 
@@ -309,9 +483,14 @@ function init() {
     FormHandlers.handleNewCalculation();
   });
 
+  // Save courses button
+  elements.saveCourseBtn.addEventListener("click", () => {
+    FormHandlers.handleSaveCourses();
+  });
+
   // Attach remove listeners to existing course rows
-  qa('.btn-remove').forEach(btn => {
-    btn.addEventListener('click', function() {
+  qa(".btn-remove").forEach((btn) => {
+    btn.addEventListener("click", function () {
       CourseManager.removeCourse(this);
     });
   });
