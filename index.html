@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPA Calculator - SAFRecords</title>
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>GPA Calculator</h1>
+        <p>Track your academic performance</p>
+      </header>
+
+      <main>
+        <section class="input-section">
+          <h2>Enter Course Details</h2>
+
+          <form id="gpaForm">
+            <div class="table-wrapper">
+              <table id="courseTable">
+                <thead>
+                  <tr>
+                    <th>Course Name</th>
+                    <th>Grade</th>
+                    <th>Credit Hours</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="courseTableBody">
+                  <tr class="course-row">
+                    <td>
+                      <input
+                        type="text"
+                        class="course-name"
+                        placeholder="e.g., Mathematics"
+                        required
+                      />
+                    </td>
+                    <td>
+                      <select class="grade" required>
+                        <option value="">Select Grade</option>
+                        <option value="5">A (Excellent)</option>
+                        <option value="4">B (Very Good)</option>
+                        <option value="3">C (Good)</option>
+                        <option value="2">D (Fair)</option>
+                        <option value="1">E (Pass)</option>
+                        <option value="0">F (Fail)</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        class="credit"
+                        min="1"
+                        max="10"
+                        placeholder="e.g., 3"
+                        required
+                      />
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn-remove"
+                      >
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-add">
+                Add Course
+              </button>
+              <button type="submit" class="btn-calculate">Calculate GPA</button>
+              <button type="button" class="btn-reset">
+                Reset
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section
+          class="results-section"
+          id="resultsSection"
+          style="display: none"
+        >
+          <h2>GPA Results</h2>
+
+          <div class="summary-card">
+            <div class="gpa-display">
+              <span class="gpa-label">Your GPA:</span>
+              <span class="gpa-value" id="gpaValue">0.00</span>
+              <span class="gpa-max">/ 5.00</span>
+            </div>
+
+            <div class="stats">
+              <div class="stat-item">
+                <span class="stat-label">Total Courses:</span>
+                <span class="stat-value" id="totalCourses">0</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Total Credit Hours:</span>
+                <span class="stat-value" id="totalCredits">0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="results-table-wrapper">
+            <h3>Course Breakdown</h3>
+            <table class="results-table">
+              <thead>
+                <tr>
+                  <th>Course Name</th>
+                  <th>Grade</th>
+                  <th>Credit Hours</th>
+                  <th>Grade Points</th>
+                </tr>
+              </thead>
+              <tbody id="resultsTableBody">
+                <!-- Results will be populated here -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="result-actions">
+            <button type="button" class="btn-print">
+              Print Results
+            </button>
+            <button type="button" class="btn-new">
+              New Calculation
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>&copy; 2025 SAFRecords GPA Calculator</p>
+      </footer>
+    </div>
+
+    <script src="src/main.js"></script>
+  </body>
+</html>
