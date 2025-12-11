@@ -212,7 +212,7 @@ body {
 
 /* Container - Mobile First */
 .container {
-  max-width: 1200px;
+  max-width: 700px;
   margin: 0 auto;
   padding: var(--spacing-md);
   min-height: 100vh;
@@ -556,7 +556,7 @@ button:disabled {
 .summary-card {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
+  padding: var(--spacing-md);
   margin-bottom: var(--spacing-xl);
   color: var(--text-inverse);
   box-shadow: var(--shadow-xl);
@@ -564,13 +564,12 @@ button:disabled {
 
 .gpa-display {
   text-align: center;
-  margin-bottom: var(--spacing-lg);
 }
 
 .gpa-label {
   display: block;
   font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-normal);
   margin-bottom: var(--spacing-sm);
   opacity: 0.95;
 }
@@ -600,7 +599,7 @@ button:disabled {
 
 .stat-item {
   text-align: center;
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   background-color: rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-md);
   backdrop-filter: blur(10px);
@@ -610,14 +609,13 @@ button:disabled {
   display: block;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  margin-bottom: var(--spacing-xs);
   opacity: 0.9;
 }
 
 .stat-value {
   display: block;
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
 }
 
 /* Results Table */
@@ -659,6 +657,11 @@ footer {
   color: var(--text-secondary);
   font-size: var(--font-size-sm);
   border-top: 1px solid var(--border-color);
+  & a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
 }
 
 /* Responsive Design - Mobile First with min-width in rem */
@@ -764,37 +767,115 @@ footer {
 
 /* Print Styles */
 @media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
   body {
-    background-color: white;
-    color: black;
+    background-color: white !important;
   }
 
   .input-section,
   .form-actions,
   .result-actions,
-  footer {
-    display: none;
+  footer,
+  .theme-toggle {
+    display: none !important;
   }
 
   .results-section {
-    box-shadow: none;
+    background-color: white !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+
+  .results-section h2 {
+    color: #1a1a1a !important;
+    border-bottom-color: #f97316 !important;
+  }
+
+  .results-section h3 {
+    color: #1a1a1a !important;
+  }
+
+  header {
+    background: linear-gradient(135deg, #f97316, #fdba74) !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  header h1,
+  header p {
+    color: white !important;
   }
 
   .summary-card {
-    background: #f5f5f5;
-    color: black;
-    border: 2px solid black;
+    background: linear-gradient(135deg, #f97316, #fdba74) !important;
+    color: white !important;
+    border: 2px solid #ea580c !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    page-break-inside: avoid;
+  }
+
+  .gpa-display,
+  .gpa-label,
+  .gpa-value,
+  .gpa-max {
+    color: white !important;
+  }
+
+  .stat-item {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color: white !important;
+  }
+
+  .stat-label,
+  .stat-value {
+    color: white !important;
+  }
+
+  .results-table-wrapper {
+    background-color: white !important;
   }
 
   table {
-    border: 1px solid black;
+    border: 2px solid #d4d4d4 !important;
+    background-color: white !important;
+    page-break-inside: avoid;
   }
 
-  thead {
-    background-color: #e5e5e5;
+  .results-table thead {
+    background-color: #f97316 !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .results-table thead th {
+    color: white !important;
+  }
+
+  .results-table tbody tr {
+    background-color: white !important;
+  }
+
+  .results-table tbody tr:nth-child(even) {
+    background-color: #f5f5f5 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .results-table tbody td {
+    color: #1a1a1a !important;
   }
 
   tbody tr {
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #d4d4d4 !important;
   }
 }
