@@ -2,7 +2,7 @@
 
 A modern, responsive web application for calculating Grade Point Average (GPA) with dark mode support and data persistence.
 
-![GPA Calculator Preview](screenshots/preview.png)
+![GPA Calculator Preview](screenshots/gpa-lightmode.png)
 
 ---
 
@@ -52,21 +52,25 @@ A modern, responsive web application for calculating Grade Point Average (GPA) w
 <table>
   <tr>
     <td align="center">
-      <img src="screenshots/light-mode.png" alt="Light Mode" width="400"/><br/>
+      <img src="screenshots/gpa-lightmode.png" alt="Light Mode" width="400"/><br/>
       <b>Light Mode</b>
     </td>
     <td align="center">
-      <img src="screenshots/dark-mode.png" alt="Dark Mode" width="400"/><br/>
+      <img src="screenshots/gpa-darkmode.png" alt="Dark Mode" width="400"/><br/>
       <b>Dark Mode</b>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="screenshots/mobile-view.png" alt="Mobile View" width="400"/><br/>
+      <img src="screenshots/mobile-gpa-darkmode.png" alt="Mobile View" width="400"/><br/>
       <b>Mobile Responsive</b>
     </td>
     <td align="center">
-      <img src="screenshots/results.png" alt="Results Display" width="400"/><br/>
+      <img src="screenshots/Results-lightmode.png" alt="Results Display in lightmode" width="400"/><br/>
+      <b>GPA Results</b>
+    </td>
+    <td align="center">
+      <img src="screenshots/Results-darkmode.png" alt="Results Display in dark" width="400"/><br/>
       <b>GPA Results</b>
     </td>
   </tr>
