@@ -9,6 +9,14 @@
   <body>
     <div class="container">
       <header>
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+        >
+          <img src="assets/sun-icon.svg" alt="sun icon" class="sun-icon" />
+          <img src="assets/moon-icon.svg" alt="moon icon" class="moon-icon" />
+        </button>
         <h1>GPA Calculator</h1>
         <p>Track your academic performance</p>
       </header>
@@ -60,12 +68,7 @@
                       />
                     </td>
                     <td>
-                      <button
-                        type="button"
-                        class="btn-remove"
-                      >
-                        Remove
-                      </button>
+                      <button type="button" class="btn-remove">Remove</button>
                     </td>
                   </tr>
                 </tbody>
@@ -73,13 +76,9 @@
             </div>
 
             <div class="form-actions">
-              <button type="button" class="btn-add">
-                Add Course
-              </button>
+              <button type="button" class="btn-add">Add Course</button>
               <button type="submit" class="btn-calculate">Calculate GPA</button>
-              <button type="button" class="btn-reset">
-                Reset
-              </button>
+              <button type="button" class="btn-reset">Reset</button>
             </div>
           </form>
         </section>
@@ -128,12 +127,8 @@
           </div>
 
           <div class="result-actions">
-            <button type="button" class="btn-print">
-              Print Results
-            </button>
-            <button type="button" class="btn-new">
-              New Calculation
-            </button>
+            <button type="button" class="btn-print">Print Results</button>
+            <button type="button" class="btn-new">New Calculation</button>
           </div>
         </section>
       </main>
@@ -146,3 +141,4 @@
     <script src="src/main.js"></script>
   </body>
 </html>
+
